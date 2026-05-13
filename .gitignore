@@ -1,0 +1,32 @@
+# ==============================
+# AI智能编程学习系统 - .gitignore
+# 只保留必需的运行文件
+# ==============================
+
+# 排除所有文件（默认）
+*
+
+# 保留核心文件
+!app.py
+!deepseek_service_simple.py
+!learning_analysis.db
+!requirements.txt
+!.gitignore
+!.env.example
+
+# 保留前端目录及内容
+!frontend/
+!frontend/**/*
+
+# 排除前端构建产物
+frontend/dist/
+frontend/node_modules/
+
+# 排除数据库备份
+*.db.backup
+
+# 排除日志文件
+*.log
+
+# 保留此文件本身
+!.gitignore

@@ -1,0 +1,46 @@
+# AI智能编程学习系统 - 后端依赖
+
+# Flask框架
+Flask==3.1.3
+Flask-CORS==6.0.2
+Flask-SQLAlchemy==3.0.5
+
+# 数据库
+SQLAlchemy==2.0.36
+
+# 环境变量
+python-dotenv==1.0.1
+
+# HTTP请求
+requests==2.33.1
+
+# Excel处理
+pandas==2.3.3
+openpyxl==3.1.5
+
+# 其他依赖
+Werkzeug==3.1.8
+Jinja2==3.1.6
+itsdangerous==2.2.0
+click==8.3.2
+colorama==0.4.6
+
+# 日期处理
+python-dateutil==2.9.0.post0
+pytz==2024.1
+tzdata==2024.1
+
+# 安全相关
+blinker==1.9.0
+
+# 网络相关
+certifi==2026.2.25
+charset-normalizer==3.4.7
+idna==3.11
+urllib3==2.6.3
+
+# 类型提示
+typing_extensions==4.15.0
+
+# 数据库连接池
+greenlet==3.4.0
