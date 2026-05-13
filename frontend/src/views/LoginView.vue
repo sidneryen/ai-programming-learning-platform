@@ -54,7 +54,11 @@
         <div class="demo-login">
           <p>演示账号：</p>
           <p>学生：请使用您的学号作为用户名，密码为123456</p>
+<<<<<<< HEAD
           <p>教师：username: teacher, password: teacher123</p>
+=======
+          <p>教师：username: teacher, password: 123456</p>
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
         </div>
       </el-form>
     </div>
@@ -96,6 +100,7 @@ export default {
         if (valid) {
           loading.value = true
           
+<<<<<<< HEAD
           // 教师和学生登录验证 - 通过统一API
           fetch('http://localhost:5002/api/login', {
             method: 'POST',
@@ -133,6 +138,58 @@ export default {
             ElMessage.error('登录失败，请稍后重试')
             loading.value = false
           })
+=======
+          if (form.role === 'teacher') {
+            // 教师登录验证
+            setTimeout(() => {
+              if ((form.username === 'teacher' && form.password === '123456')) {
+                // 保存登录状态
+                localStorage.setItem('isAuthenticated', 'true')
+                localStorage.setItem('userRole', form.role)
+                localStorage.setItem('username', form.username)
+                
+                ElMessage.success('登录成功')
+                router.push('/teacher')
+              } else {
+                ElMessage.error('用户名或密码错误')
+              }
+              loading.value = false
+            }, 1000)
+          } else {
+            // 学生登录验证 - 通过API验证学号
+            fetch('http://localhost:5002/api/students/verify', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                username: form.username,
+                password: form.password
+              })
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                // 保存登录状态
+                localStorage.setItem('isAuthenticated', 'true')
+                localStorage.setItem('userRole', form.role)
+                localStorage.setItem('username', form.username)
+                localStorage.setItem('userId', data.student_id) // 使用真实的student_id
+                
+                ElMessage.success('登录成功')
+                router.push('/student')
+              } else {
+                ElMessage.error(data.error || '用户名或密码错误')
+              }
+              loading.value = false
+            })
+            .catch(error => {
+              console.error('登录失败:', error)
+              ElMessage.error('登录失败，请稍后重试')
+              loading.value = false
+            })
+          }
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
         }
       })
     }

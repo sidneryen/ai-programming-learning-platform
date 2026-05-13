@@ -664,6 +664,7 @@ def login():
 
         session_db = Session()
         try:
+<<<<<<< HEAD
             # 尝试查找用户（包括学生和教师）
             user = session_db.query(User).filter_by(username=username).first()
             
@@ -709,6 +710,39 @@ def login():
                         session_db.commit()
                 
                 if not password_valid:
+=======
+            # 先尝试查找学生（使用学号作为用户名）
+            student = session_db.query(Student).filter_by(student_id=username).first()
+            if student:
+                # 学生密码统一为123456
+                if password == '123456':
+                    # 生成简单token
+                    token = f"token_student_{student.id}_{datetime.datetime.now().timestamp()}"
+                    return jsonify({
+                        "success": True,
+                        "message": "登录成功",
+                        "token": token,
+                        "user": {
+                            "id": student.id,
+                            "username": student.student_id,
+                            "name": student.name,
+                            "role": "student",
+                            "email": ""
+                        }
+                    })
+                else:
+                    return jsonify({
+                        "success": False,
+                        "error": "用户名或密码错误"
+                    }), 401
+
+            # 尝试查找用户（学生账号）
+            user = session_db.query(User).filter_by(username=username).first()
+            if user:
+                # 验证用户是否存在以及密码是否正确
+                from werkzeug.security import check_password_hash
+                if not check_password_hash(user.password, password):
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
                     return jsonify({
                         "success": False,
                         "error": "用户名或密码错误"
@@ -735,10 +769,15 @@ def login():
                 }
 
                 # 如果是学生用户，添加姓名信息
+<<<<<<< HEAD
                 if user.role == 'student' and 'student' in locals():
                     student = session_db.query(Student).filter_by(user_id=user.id).first()
                     if student:
                         user_info["name"] = student.name
+=======
+                if user.role == 'student' and 'student' in locals() and student:
+                    user_info["name"] = student.name
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
 
                 return jsonify({
                     "success": True,
@@ -1119,10 +1158,17 @@ def import_students():
                     )
                     session_db.add(student)
                 else:
+<<<<<<< HEAD
                     from werkzeug.security import generate_password_hash
                     user = User(
                         username=student_id,
                         password=generate_password_hash('123456'),
+=======
+                    # 创建用户
+                    user = User(
+                        username=student_id,
+                        password='123456',
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
                         role='student',
                         email=email
                     )
@@ -1153,6 +1199,7 @@ def import_students():
             "error": f"导入失败: {str(e)}"
         }), 500
 
+<<<<<<< HEAD
 @app.route('/api/students/reset-passwords', methods=['POST'])
 def reset_all_student_passwords():
     """重置所有学生密码为123456"""
@@ -1178,6 +1225,8 @@ def reset_all_student_passwords():
             "error": f"重置密码失败: {str(e)}"
         }), 500
 
+=======
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
 @app.route('/api/problems', methods=['GET'])
 def get_problems():
     """获取题目列表（支持分页和搜索）"""
@@ -5403,6 +5452,7 @@ def verify_student():
             student = session_db.query(Student).filter_by(student_id=username).first()
             
             if student:
+<<<<<<< HEAD
                 # 获取关联的User账户
                 user = session_db.query(User).filter_by(id=student.user_id).first()
                 
@@ -5423,6 +5473,10 @@ def verify_student():
                 # 使用加密方式验证密码
                 from werkzeug.security import check_password_hash
                 if check_password_hash(user.password, password):
+=======
+                # 验证密码（这里简单处理，实际应该加密验证）
+                if password == '123456':  # 统一密码123456
+>>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
                     return jsonify({
                         "success": True,
                         "student_id": student.id,
