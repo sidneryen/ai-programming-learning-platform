@@ -31,17 +31,10 @@
               <el-input v-model="userInfoForm.email" placeholder="请输入邮箱" />
             </el-form-item>
             <el-form-item label="密码" prop="password">
-<<<<<<< HEAD
               <el-input v-model="userInfoForm.password" type="password" placeholder="请输入新密码，留空则不修改" show-password />
             </el-form-item>
             <el-form-item label="确认密码" prop="confirmPassword">
               <el-input v-model="userInfoForm.confirmPassword" type="password" placeholder="请确认新密码" show-password />
-=======
-              <el-input v-model="userInfoForm.password" type="password" placeholder="请输入新密码，留空则不修改" />
-            </el-form-item>
-            <el-form-item label="确认密码" prop="confirmPassword">
-              <el-input v-model="userInfoForm.confirmPassword" type="password" placeholder="请确认新密码" />
->>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
             </el-form-item>
           </el-form>
           <template #footer>
@@ -224,11 +217,8 @@ const updateUserInfo = async () => {
     const response = await api.updateUserInfo(userId, updateData)
     if (response.success) {
       ElMessage.success('个人信息更新成功')
-<<<<<<< HEAD
       userInfoForm.password = ''
       userInfoForm.confirmPassword = ''
-=======
->>>>>>> 17794b76daf9c79d232c0bfb6d2a80984a654238
       userInfoDialogVisible.value = false
     } else {
       ElMessage.error(response.error || '更新失败')
