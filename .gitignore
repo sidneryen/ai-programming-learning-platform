@@ -13,6 +13,8 @@
 !requirements.txt
 !.gitignore
 !.env.example
+!安装手册.md
+!使用手册.md
 
 # 保留前端目录及内容
 !frontend/
